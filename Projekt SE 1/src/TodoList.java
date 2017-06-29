@@ -1,74 +1,31 @@
+
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class TodoList {
 
+	public static ArrayList<TodoItem> myTodoList = new ArrayList<>();
 
+	//public static MyTodoArray<To> myTodoList<T  = new MyTodoArray();
 	public static void main(String[] args) {
 
-		int nyttVal;
-		int valtAlternativ;
-		boolean notCorrectValue = true;
-		Scanner scan = new Scanner(System.in);
-		ArrayList<TodoItem> myTodoList = new ArrayList<>();
+		Menu.visaMenu();
 
-		Menu visaMeny = new Menu();
-		valtAlternativ = visaMeny.nyttVal;
+		//Bara för att ha något i listan vid start
+		TodoItem t1 = new TodoItem("Städa", 3, 369);
+		myTodoList.add(t1);
+		TodoItem t2 = new TodoItem("Träna", 1, 456);
+		myTodoList.add(t2);
+		TodoItem t3 = new TodoItem("Flyga", 20, 777);
+		myTodoList.add(t3);
 
-		while (notCorrectValue){
-			switch(valtAlternativ){
-			default:
-				System.out.println("Du måste ange ett av alternativen 1-8");
-				nyttVal = scan.nextInt();
-				break;
-			case 1:
+		MenuValue mv = new MenuValue();
 
-				notCorrectValue = false;
-				break;
-			case 2:
-
-				notCorrectValue = false;
-				break;
-			case 3:
-
-				notCorrectValue = false;
-				break;
-			case 4:
-
-				notCorrectValue = false;
-				break;
-			case 5:
-
-				notCorrectValue = false;
-				break;
-			case 6:
-
-				notCorrectValue = false;
-				break;
-			case 7:
-
-				notCorrectValue = false;
-				break;
-			case 8:
-
-				notCorrectValue = false;
-				break;
-			}
-
-		}
-
-
-		TodoItem td1 = new TodoItem("Städa", "Noggrann veckostädning!", 1);
-		myTodoList.add(td1);
-		System.out.println(td1.todoDescription);
-		System.out.println(td1.dateCreated);
-		System.out.println(td1.endDate);
-		System.out.println(td1.todoStatus);
-		System.out.println(myTodoList);
-
+		// Loading with XmlIO, in this case the file might be missing.
+		//		try {
+		//			myTodoList  = XmlIO.loadObject("gabyprojekt1.xml", MyTodoArray.class);
+		//		} catch (IOException ex) {
+		//			System.out.println("Could not load todolist.xml");
+		//		}
 	}
-
-
-
-
 }

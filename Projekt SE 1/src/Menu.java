@@ -1,15 +1,7 @@
-import java.util.Scanner;
 
 public class Menu {
-	
-	int nyttVal;
-	Scanner scan = new Scanner(System.in);
 
-	public Menu() {
-		
-	}
-
-	public int visaMenu() {
+	public static void visaMenu() {
 		System.out.println();
 		System.out.println("***   MENY   ***");
 		System.out.println("1. Visa hela listan");
@@ -20,15 +12,5 @@ public class Menu {
 		System.out.println("6. Editera en aktivitet");
 		System.out.println("7. Tag bort alla aktiviteter med status DONE");
 		System.out.println("8. AVSLUTA");
-
-		System.out.print("Välj 1-8: ");
-		nyttVal = scan.nextInt();
-		System.out.println("You chose " + nyttVal + ".");
-		return nyttVal;
-		
 	}
-	
-	
-
-
 }

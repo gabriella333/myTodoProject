@@ -2,17 +2,17 @@ import java.time.LocalDate;
 
 public class TodoItem {
 	String todoName;
-	String todoDescription;
 	int todoDays;
+	int ID;
 	LocalDate  dateCreated;
 	LocalDate endDate;	
 	boolean todoStatus;
 
-	public TodoItem(String todoName, String todoDescription, int todoDays) {
+	public TodoItem(String todoName, int todoDays, int ID) {
 		//super();
 		this.todoName = todoName;
-		this.todoDescription = todoDescription;
 		this.todoDays = todoDays;
+		this.ID = ID;
 		this.dateCreated = LocalDate.now();	
 		this.endDate = dateCreated.plusDays(todoDays);
 		this.todoStatus = false;
@@ -25,12 +25,6 @@ public class TodoItem {
 	public void setTodoName(String todoName) {
 		this.todoName = todoName;
 	}
-	public String getTodoDescription() {
-		return todoDescription;
-	}
-	public void setTodoDescription(String todoDescription) {
-		this.todoDescription = todoDescription;
-	}
 	public boolean isTodoStatus() {
 		return todoStatus;
 	}
@@ -42,6 +36,12 @@ public class TodoItem {
 	}
 	public LocalDate getDateCreated() {
 		return dateCreated;
+	}
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
 	}
 
 }
