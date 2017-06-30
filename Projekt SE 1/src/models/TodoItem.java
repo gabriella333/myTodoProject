@@ -1,23 +1,23 @@
+package models;
 import java.time.LocalDate;
 
 public class TodoItem {
-	String todoName;
-	int todoDays;
-	int ID;
-	LocalDate  dateCreated;
-	LocalDate endDate;	
-	boolean todoStatus;
+	private int ID;
+	private String todoName;
+	private int todoDays;
+	private LocalDate  dateCreated;
+	private LocalDate endDate;	
+	private boolean todoStatus;
 
 	public TodoItem(String todoName, int todoDays, int ID) {
 		//super();
+		this.ID = ID;
 		this.todoName = todoName;
 		this.todoDays = todoDays;
-		this.ID = ID;
 		this.dateCreated = LocalDate.now();	
 		this.endDate = dateCreated.plusDays(todoDays);
 		this.todoStatus = false;
 	}
-
 
 	public String getTodoName() {
 		return todoName;
@@ -42,6 +42,12 @@ public class TodoItem {
 	}
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
+	}
+	public int getID() {
+		return ID;
+	}
+	public void setID(int iD) {
+		ID = iD;
 	}
 
 }
