@@ -1,16 +1,11 @@
 package models;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Iterator;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import io.XmlIO;
-import ui.TodoList;
-
+import ui.MenuEdit;
 
 public class EditList implements Iterator<TodoItem>{
 
