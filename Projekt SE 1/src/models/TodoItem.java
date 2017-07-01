@@ -10,10 +10,9 @@ public class TodoItem {
 	private boolean todoStatus;
 
 	public TodoItem(String todoName, int todoDays, int ID) {
-		//super();
-		this.ID = ID;
 		this.todoName = todoName;
 		this.todoDays = todoDays;
+		this.ID = ID;
 		this.dateCreated = LocalDate.now();	
 		this.endDate = dateCreated.plusDays(todoDays);
 		this.todoStatus = false;
@@ -46,8 +45,4 @@ public class TodoItem {
 	public int getID() {
 		return ID;
 	}
-	public void setID(int iD) {
-		ID = iD;
-	}
-
 }

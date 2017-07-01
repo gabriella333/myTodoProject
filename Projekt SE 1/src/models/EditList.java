@@ -16,15 +16,11 @@ public class EditList implements Iterator<TodoItem>{
 
 	static Scanner scan = new Scanner(System.in);
 
-	public EditList() {
-	}
-
 	//******************************
 	//Alternativ 1. Visa hela listan
 	//******************************
 	public static void visaLista(){
-		System.out.println("ID   Todo         Klar senast   Status");
-		System.out.println("--   ----         -----------   ------");
+		printHeader();
 		Iterator<TodoItem> it = Listan.myTodoList.iterator(); 
 		while (it.hasNext()){
 			TodoItem td = it.next();
@@ -39,10 +35,7 @@ public class EditList implements Iterator<TodoItem>{
 		System.out.println();
 		System.out.print("What todo: ");
 		String nyttTodo = scan.next(); 
-		//TODO: Hur läser jag in en String med flera värden?
-		//while (scan.hasNext()) nyttTodo = nyttTodo + " " + scan.next();
 		System.out.print("No of days it will take to execute: ");
-
 		try {
 			int nyttTodoDays = Integer.parseInt(scan.next()); 
 			int ID = (int) Math.ceil(Math.random()*1000);
@@ -63,7 +56,6 @@ public class EditList implements Iterator<TodoItem>{
 		int counter = 0;
 		System.out.println();
 		System.out.print("Which todo-ID to remove: ");
-
 		try
 		{
 			int ID = Integer.parseInt(scan.next());
@@ -100,7 +92,6 @@ public class EditList implements Iterator<TodoItem>{
 	public static void changeStatusTodoItem(){
 		System.out.println();
 		System.out.print("Which todo-ID to change status: ");
-
 		try 
 		{
 			int ID = Integer.parseInt(scan.next());
@@ -124,7 +115,7 @@ public class EditList implements Iterator<TodoItem>{
 				System.out.println("Status on ID " + td.getID() + " is " + td.isTodoStatus());
 				System.out.println("Change status (Y/N): ");
 				String nyttStatus = scan.next();
-				if (nyttStatus.equals("Y")){
+				if (nyttStatus.equals("Y") || nyttStatus.equals("y")){
 					if (td.isTodoStatus()) {
 						td.setTodoStatus(false);
 					} else td.setTodoStatus(true);
@@ -165,67 +156,64 @@ public class EditList implements Iterator<TodoItem>{
 	//**********************************
 	//Alternativ 6. Editera en aktivitet
 	//**********************************
-	public static void editTodoItem(){
-		boolean keepOnEditing= true;
-		int counter = 0;
+	public static void editTodoItem(){		
 		System.out.println();
 		System.out.print("Which todo-ID do you want to edit: ");
-		try
+		try 
 		{
-			int ID = Integer.parseInt(scan.next()); 
-			Iterator<TodoItem> it = Listan.myTodoList.iterator();
-			while (it.hasNext()){
-				TodoItem td = it.next();
-				if (td.getID() == ID){
-					counter++;
+			int ID = Integer.parseInt(scan.next());
+			editTodoItem(ID);
+		}
+		catch (NumberFormatException e)
+		{
+			System.out.println("Incorrect ID value! Try again!");
+			editTodoItem();
+		}
+	}
 
-					while(keepOnEditing) {
-
-						System.out.println(toString(td));
-						System.out.println("Choose property of ID " + ID + " to edit:");
-						System.out.println("1. Todo name");
-						System.out.println("2. End date");
-						System.out.println("3. Status");
-						System.out.println("4. Stop editing");
-						String editVal = scan.next();
-
-						switch(editVal) {
-						default:
-							System.out.println("Du måste ange ett av alternativen 1-4");
-							break;
-						case "1":
-							System.out.println("New name for todo (" + td.getTodoName() + ") :");
-							td.setTodoName(scan.next());
-							break;
-						case "2":
-							System.out.println("New end date for todo ("+ td.getEndDate() + "): ");
-							String inEndDate = scan.next();						
-
-							try
-							{
-								td.setEndDate(LocalDate.parse(inEndDate)); 
-							}
-							catch (DateTimeParseException dte)
-							{
-								System.out.println("Wrong format on date.");
-								System.out.println("Should be in the format yyyy-mm-dd");
-							}
-							break;
-						case "3":
-							changeStatusTodoItem(td.getID());
-							break;
-						case "4":
-							keepOnEditing = false;
-							break;
+	public static void editTodoItem(int ID){
+		int counter = 0;
+		boolean keepOnEditing = true;
+		Iterator<TodoItem> it = Listan.myTodoList.iterator();
+		while (it.hasNext()){
+			TodoItem td = it.next();
+			if (td.getID() == ID){
+				counter++;
+				while(keepOnEditing) {
+					MenuEdit.visaMenuEdit(td, ID);
+					String editVal = scan.next();
+					switch(editVal) {
+					default:
+						System.out.println("Du måste ange ett av alternativen 1-4");
+						break;
+					case "1":
+						System.out.println("New name for todo (" + td.getTodoName() + ") :");
+						td.setTodoName(scan.next());
+						break;
+					case "2":
+						System.out.println("New end date for todo ("+ td.getEndDate() + "): ");
+						String inEndDate = scan.next();						
+						try
+						{
+							td.setEndDate(LocalDate.parse(inEndDate)); 
 						}
+						catch (DateTimeParseException dte)
+						{
+							System.out.println("Wrong format on date.");
+							System.out.println("Date should be in the format yyyy-mm-dd");
+						}
+						break;
+					case "3":
+						changeStatusTodoItem(td.getID());
+						break;
+					case "4":
+						keepOnEditing = false;
+						break;
 					}
 				}
 			}
 		}
-		catch (NumberFormatException e) {
-			System.out.println("Incorrect ID value! Try again!");
-			editTodoItem();
-		}
+
 		if (counter == 0) {
 			System.out.println("No such ID was found!");
 		}
@@ -239,7 +227,7 @@ public class EditList implements Iterator<TodoItem>{
 		System.out.print("Remove all activities with status DONE (Y/N):");
 		String removeStatus = scan.next();
 		boolean finnsEj= true;
-		if (removeStatus.equals("Y")){
+		if (removeStatus.equals("Y") || removeStatus.equals("y")){
 			Iterator<TodoItem> it = Listan.myTodoList.iterator();
 			while (it.hasNext()){
 				TodoItem td = it.next();
@@ -254,32 +242,26 @@ public class EditList implements Iterator<TodoItem>{
 		} else System.out.println("No activity was removed!"); return;	
 	}
 
-	//*******************************************************
-	//Alternativ 8. Avsluta program och spara ner till xml-fil
-	//*******************************************************
+	//*****************************
+	//Alternativ 8. Avsluta program
+	//*****************************
 	public static void stopProgram() {
-		System.out.println("Stänger programmet och sparar ner i en xml fil (gabyprojekt1.xml)!");
-		// Using XmlIO to save an object to file, errors are unexpected (write protected files)
-		try {
-			Listan listan = TodoList.listan;
-			System.out.println(TodoList.listan.myTodoList.get(0).getTodoName());
-			XmlIO.saveObject("gabyprojekt1.xml", listan);
-		} 
-		catch (IOException ex) {
-			System.out.println("Här blir det fel!");
-			Logger .getLogger(TodoList.class.getName()).log(Level.SEVERE, null, ex);
-		}	 
+		System.out.println("Stänger programmet!");
 	}
 
 	@Override
 	public boolean hasNext() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	@Override
 	public TodoItem next() {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public static void printHeader(){
+		System.out.println();
+		System.out.println("ID   Todo         Klar senast   Status");
+		System.out.println("--   ----         -----------   ------");
 	}
 
 	public static String toString(TodoItem td) {

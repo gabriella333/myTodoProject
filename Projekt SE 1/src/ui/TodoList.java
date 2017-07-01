@@ -29,9 +29,9 @@ public class TodoList {
 		Listan.myTodoList.add(t2);
 		TodoItem t3 = new TodoItem("Flyga", 20, 777);
 		Listan.myTodoList.add(t3);
-
+		
+//Endast dessa två rader finns sedan!
 		Menu.visaMenu();
-//		MenuValue mv = new MenuValue();
 		MenuValue.start();
 	}
 }

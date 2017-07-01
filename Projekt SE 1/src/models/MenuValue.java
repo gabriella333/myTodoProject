@@ -1,22 +1,16 @@
 package models;
 
 import java.util.Scanner;
-
-import io.XmlIO;
 import ui.Menu;
 
 public class MenuValue {
 
 	static String nyttVal;
 	static Scanner scan = new Scanner(System.in);
-	public static boolean notCorrectValue = true;
-	//static EditList el = new EditList();//Innehåller alla metoder till att manipulera myTodoList
+	public static boolean correctValue = true;
 	
-	public MenuValue() {	
-	}
-
 	public static void start() {
-		while (notCorrectValue){
+		while (correctValue){
 
 			System.out.print("Välj alternativ 1-8 (eller M för att visa meny): ");
 			nyttVal = scan.next();
@@ -48,7 +42,7 @@ public class MenuValue {
 				break;
 			case "8":
 				EditList.stopProgram();
-				notCorrectValue = false;
+				correctValue = false;
 				break;
 			case "M":
 				Menu.visaMenu();
