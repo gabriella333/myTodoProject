@@ -48,36 +48,41 @@ public class EditList implements Iterator<TodoItem>{
 	//Alternativ 3. Tag bort en aktivitet
 	//***********************************
 	public static void removeTodoItem() {
-		int counter = 0;
 		System.out.println();
 		System.out.print("Which todo-ID to remove: ");
 		try
 		{
 			int ID = Integer.parseInt(scan.next());
-			Iterator<TodoItem> it = Listan.myTodoList.iterator();
-			while (it.hasNext()){
-				TodoItem td = it.next();
-				if (td.getID() == ID){
-					counter++;
-					System.out.println("ID " + td.getID() + " is now removed!");
-					Listan.myTodoList.remove(td);
-					break;
-				}
-			}	
-		}
+			removeTodoItem(ID);
+		}	
 		catch (NumberFormatException e)
 		{
 			System.out.println("Incorrect ID value! Try again!");
 			removeTodoItem();
 		}
+	}
+
+	public static void removeTodoItem(int ID){	
+		int counter = 0;
+		Iterator<TodoItem> it = Listan.myTodoList.iterator();
+		while (it.hasNext()){
+			TodoItem td = it.next();
+			if (td.getID() == ID){
+				counter++;
+				System.out.println("ID " + td.getID() + " is now removed!");
+				Listan.myTodoList.remove(td);
+				break;
+			}
+		}
 		if (counter == 0) {
 			System.out.println("No such ID was found!");
 		}
 	}
+
 	//**********************************************
-	// LAMBDA funktionell programmering
+	// LAMBDA funktionell programmering kommer senare i kursen!
 	//
-	//TodoList.myTodoList.removeIf(x -> x.ID == ID);
+	//Listan.myTodoList.removeIf(x -> x.ID == ID);
 	//**********************************************
 
 
@@ -101,7 +106,6 @@ public class EditList implements Iterator<TodoItem>{
 
 	public static void changeStatusTodoItem(int ID){
 		int counter = 0;
-
 		Iterator<TodoItem> it = Listan.myTodoList.iterator();
 		while (it.hasNext()){
 			TodoItem td = it.next();
@@ -244,6 +248,8 @@ public class EditList implements Iterator<TodoItem>{
 		System.out.println("Stänger programmet!");
 	}
 
+
+
 	@Override
 	public boolean hasNext() {
 		return false;
@@ -253,13 +259,16 @@ public class EditList implements Iterator<TodoItem>{
 		return null;
 	}
 
-	public static void printHeader(){
+	private static void printHeader(){
 		System.out.println();
 		System.out.println("ID   Todo         Klar senast   Status");
 		System.out.println("--   ----         -----------   ------");
 	}
 
 	public static String toString(TodoItem td) {
-		return td.getID() +"  " + td.getTodoName()  + "          " + td.getEndDate() + "  " + td.isTodoStatus();
+		String status;
+		if (td.isTodoStatus()) status = "DONE";
+		else status = "NOT DONE";
+		return td.getID() +"  " + td.getTodoName()  + "        " + td.getEndDate() + "    " + status;
 	}
 }

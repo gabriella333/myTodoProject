@@ -1,7 +1,8 @@
-package models;
+package ui;
 
 import java.util.Scanner;
-import ui.Menu;
+
+import models.EditList;
 
 public class MenuValue {
 
@@ -10,6 +11,9 @@ public class MenuValue {
 	public static boolean correctValue = true;
 	
 	public static void start() {
+		StartValues.initValues();
+		Menu.visaMenu(); 
+		
 		while (correctValue){
 
 			System.out.print("Välj alternativ 1-8 (eller M för att visa meny): ");
